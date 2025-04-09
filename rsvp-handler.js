@@ -20,7 +20,7 @@ $(document).ready(function() {
         $('#send-email-button').prop('disabled', true).text('Sending...');
         
         $.ajax({
-            url: 'http://158.178.215.54:81/api/rsvp.php',
+            url: 'https://dashboard.event-crafts.com/api/rsvp.php',
             type: 'POST',
             headers: {
                 'X-API-KEY': 'TestSecret1'

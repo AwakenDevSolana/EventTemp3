@@ -2,228 +2,656 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Wedding Invitation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Template 3</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <link href="fonts/fonts.css" rel="stylesheet">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+  
   <style>
-    /* Base styles */
+    /* Ensure full-screen coverage */
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow-x: hidden;
-      font-family: Arial, sans-serif;
+      overflow: hidden; /* Prevent scrolling */
+      background-image: url('img/bg.jpg');
+      background-repeat: no-repeat;
+      background-size: cover; /* Adjust background size to cover the viewport */
+      background-position: center center; /* Center the background image */
+      color: white; /* Set text color to white */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a transparent shadow */
+      background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity and color as needed */
+      position: relative; /* Add relative positioning to cover the entire viewport */
     }
     
-    /* Slider container */
-    .slider-container {
+    /* Style for individual slides */
+    .slider {
       width: 100%;
-      height: 100vh;
-      position: relative;
-      overflow: hidden;
+      height: 100%;
+      max-width: 800px;
+      margin: auto; /* Center horizontally */
+      position: auto; /* Add relative positioning to contain the overlay */
+      display: flex;
+      flex-direction: column; /* Ensure the slider stretches to full height */
+      justify-content: space-between; /* Push content to the top and bottom */
+      border: 4px solid #fff; /* Add a white border with 4px width */
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Add a white shadow for a 3D effect */
+      overflow: hidden; /* Prevent scrolling */
     }
     
-    /* Individual slides */
+    /* Style for individual slides */
     .slide {
-      width: 100%;
-      height: 100vh;
+      height: 100vh; /* 100% of viewport height */
+      display: flex;
+      flex-direction: column; /* Stretch slide content vertically */
+      justify-content: flex-end; /* Push content to the bottom */
+      font-size: 2em;
+      color: white;
+      text-align: center;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      position: relative;
+      margin: 0; /* Remove margin to cover the whole viewport */
+      padding: 0; /* Remove padding to cover the whole viewport */
+      border: 1px solid #fff; /* Add a border to each slide */
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Add a shadow to the border */
+      overflow: hidden; /* Prevent scrolling */
+    }
+    
+    /* Background color overlay */
+    .slide-overlay {
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;     
+      background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity and color as needed */
+      z-index: 1; /* Ensure the overlay is above the background image */
+      overflow: hidden; /* Prevent scrolling */
+    }
+    
+    /* Styling for YORO class */
+    .YORO {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      background-size: cover;
-      background-position: center;
-      color: white;
-      padding: 20px;
-      box-sizing: border-box;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a transparent shadow */
     }
     
-    /* First slide specific styles */
-    .slide-1 {
-      background-image: url('img/img1.jpg');
-    }
-    
-    .title {
-      font-size: clamp(24px, 8vw, 50px);
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    
-    .names {
-      font-size: clamp(20px, 6vw, 40px);
-      margin: 10px 0;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    .progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 5px; /* Adjust the height of the progress bar */
+      background-color: DarkRed; /* Set the color of the progress bar */
+      transition: width 0.3s ease-in-out;
     }
     
     .unlock-button {
-      position: absolute;
-      bottom: 15%;
-      background: transparent;
-      border: none;
+      background-color: transparent;
       color: white;
-      font-size: clamp(16px, 5vw, 24px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    
-    .unlock-button img {
-      width: clamp(80px, 25vw, 150px);
-      height: auto;
-      margin-bottom: 10px;
-    }
-    
-    /* Second slide specific styles */
-    .slide-2 {
-      background-image: url('img/img6.jpg');
-    }
-    
-    .invitation-text {
-      font-size: clamp(16px, 5vw, 24px);
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      max-width: 90%;
-    }
-    
-    .details {
-      font-size: clamp(14px, 4vw, 20px);
-      margin: 10px 0;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    
-    .map-button {
-      margin-top: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); /* Add a transparent shadow */
+      border: 0px solid white;
       padding: 10px 20px;
-      background: white;
-      color: black;
+      font-size: 30px;
+      font-color: white;
+      cursor: pointer;
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      border-radius: 50%; /* Makes the element circular */
+    }
+    
+    .pause-button {
+      background-color: transparent;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      border: 0px solid white;
+      padding: 10px 20px;
+      font-size: 10px;
+      cursor: pointer;
+      position: absolute; /* Use fixed position */
+      bottom: 13%; /* Adjust the distance from the bottom as needed */
+      left: 0; /* Position at the left edge */
+      z-index: 2;
+      border-radius: 50%;
+      transform: rotate(25deg);
+      margin-left: 7px;
+      z-index: 3;
+      color: white;
+      text-align: center;
+    }
+    
+    .countdown-unit {
+      display: inline-block;
+      margin: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a transparent shadow */
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+    .image-fade4 {
+      position: relative;
+      animation: fade 4s infinite;
+    }
+    
+    @keyframes fade {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+    }
+    
+    .image-fade2 {
+      position: relative;
+      animation: fade 2s infinite;
+    }
+    
+    @keyframes fade2 {
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+    }
+    
+    /* CSS */
+    .button-28 {
+      appearance: none;
+      background-color: white;
+      border: 2px solid #1A1A1A;
+      border-radius: 15px;
+      box-sizing: border-box;
+      color: #3B3B3B;
+      cursor: pointer;
+      display: inline-block;
+      font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+      margin: 0;
+      min-height: 60px;
+      min-width: 0;
+      outline: none;
+      text-align: center;
+      text-decoration: none;
+      transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: 100%;
+      will-change: transform;
+    }
+    
+    .button-28:disabled {
+      pointer-events: none;
+    }
+    
+    .button-28:hover {
+      color: #fff;
+      background-color: #1A1A1A;
+      box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+      transform: translateY(-2px);
+    }
+    
+    .button-28:active {
+      box-shadow: none;
+      transform: translateY(0);
+    }
+    
+    .button-link {
+      text-decoration: none; /* Remove underline or other text decorations */
+      /* Add other button styling as needed */
+      padding: 10px 20px;
+      font-weight:bold;
+      color: black; /* Example text color */
       border: none;
       border-radius: 5px;
-      font-size: clamp(14px, 4vw, 18px);
       cursor: pointer;
-      text-decoration: none;
+      text-align: center;
+      display: inline-block;
+      transition: background-color 0.3s ease; /* Example transition */
     }
     
-    /* Arrow indicator */
-    .arrow-indicator {
+    .button-link:hover {
+      background-color: #0056b3; /* Example hover background color */
+      /* Add other hover styles as needed */
+    }
+    
+    .rotated-image {
+      transform: rotate(-20deg); /* Adjust the degree of rotation as needed */
+      width: 200px; /* Set the width */
+      height: 200px; /* Set the height */
+    }
+    
+    /* LOADING PAGE SPINNER AND SPINNER BACKGROUND */
+    .lds-grid-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: -webkit-radial-gradient(#222222, #000000);
+      background: radial-gradient(#222222, #000000);
+      z-index: 1000;
+    }
+    
+    .lds-heart {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+      transform: rotate(45deg);
+      transform-origin: 40px 40px;
+    }
+    
+    .lds-heart div {
+      top: 32px;
+      left: 32px;
       position: absolute;
-      bottom: 20px;
-      width: 30px;
-      height: 30px;
-      animation: bounce 2s infinite;
+      width: 32px;
+      height: 32px;
+      background: #fff;
+      animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
     }
     
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-      40% {transform: translateY(-20px);}
-      60% {transform: translateY(-10px);}
+    .lds-heart div:after,
+    .lds-heart div:before {
+      content: " ";
+      position: absolute;
+      display: block;
+      width: 32px;
+      height: 32px;
+      background: #fff;
     }
     
-    /* Media queries for very small screens */
-    @media (max-width: 360px) {
-      .title {
-        font-size: 20px;
+    .lds-heart div:before {
+      left: -24px;
+      border-radius: 50% 0 0 50%;
+    }
+    
+    .lds-heart div:after {
+      top: -24px;
+      border-radius: 50% 50% 0 0;
+    }
+    
+    @keyframes lds-heart {
+      0% {
+        transform: scale(0.95);
       }
-      .names {
-        font-size: 18px;
+      5% {
+        transform: scale(1.1);
       }
-      .unlock-button {
-        bottom: 10%;
+      39% {
+        transform: scale(0.85);
+      }
+      45% {
+        transform: scale(1);
+      }
+      60% {
+        transform: scale(0.95);
+      }
+      100% {
+        transform: scale(0.9);
       }
     }
   </style>
 </head>
 <body>
 
-<div class="slider-container">
-  <!-- First Slide -->
-  <div class="slide slide-1">
-    <div class="title">We Are Getting Married!</div>
-    <div class="names">Richard</div>
-    <div class="names">&</div>
-    <div class="names">Claudette</div>
-    
-    <button class="unlock-button">
-      <img src="img/play.png" alt="Play">
-      Tap to Start
-    </button>
-    
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACxklEQVR4nO3YT4hVZRzG8Tf/zKiQpShhTYqrMBhFWgw1m3QVVIugRQvRFlabiVm0mO1sillECwnB1AIV2sQguAmKIrRFkUJqi4QQlTZJkWCoNfaJ05zBGTvnvXPvPXfuubf3uz7n93ve97x/nvOEkEgkEolEIpFIJIrAu3g19Bh4ER9iWTtF3nSPQxgINQcPYAJ3c91vt1roOfxlIWewKdQUPIhp/+W1VortK5iAjGsYCTUDT+LHAr1/46129tEfBUVvY3+oCbnO3wt0zrStEyO4XlC86+dCwX6fz008X1WjbbhSMglfd+NcwHp8WqLpVzxTdcNH8X1Jw5/xdKUN41p24KcSLZfxRKcar8PpksZ3MN6Rxgs1vJIv7yIuYKjTAgbxiXKOYXUH+i7HVKTvl3io6r4xMT9ExHyHzaEisAGfRfpNd2LSF3MCT0ZE/YJnQ5tgZ76vy3i/LbvbLhgruYbkRmqijdp7SnzInMGZDHUAL+FW5Csdb2aJYkWD/T7Tkr3tJNiFGxHRZ7FlEXU24otInWxFvBDqCIZzT1BG5ih3R95/KmK4Mn7DaKgz2IpLkUEUngt4PfcSZWQTO9wTgQgewTlxPsKq3FccafDseTzWjUBk7L7rZmUT767F5w0G9i2+afDMV3i4ib7L8ut57mZ6p2uBCAbwsdY52eTtUb9AxOwXOdDC4A9mjrNvAhGM52IWw1RfBiLYiz8jA88Ev9HXgYj4qnq5zoHI4/ihikAkMzO5yPmCR/9XgYjZVXU1n7ztvRSIrMEp5WTnwmATq2qoiR+k9yJ9s/+HFIgsGVIgMksKREIKRP4lBSIhBSL9GYi0Qh6IZBlgjBO5p8gCkcMNnr2YeYbQS+hSIFIrLHEgUkvMGqYsV2yWo5n9Df2CDgYiPYOKA5GeREWBSE+jzUCkL9BiINJXaCIQSSQSiUQikUiEavkHSfQPhekqB4QAAAAASUVORK5CYII=" 
-         class="arrow-indicator" alt="Scroll indicator">
-  </div>
-  
-  <!-- Second Slide -->
-  <div class="slide slide-2">
-    <div class="invitation-text">
-      Join us as we celebrate our love and begin a new chapter in our lives.
-    </div>
-    
-    <div class="details">
-      Date: [Date] <span style="font-size: 1.2em;">📅</span>
-    </div>
-    
-    <div class="details">
-      Time: [Time] <span style="font-size: 1.2em;">⏰</span>
-    </div>
-    
-    <div class="details">
-      Location: [Venue Name] <span style="font-size: 1.2em;">📍</span>
-    </div>
-    
-    <a href="https://goo.gl/maps/CggkAtbF8TGEhwKLA" class="map-button">
-      Location Map <span style="font-size: 1.2em;">🗺️</span>
-    </a>
+<!--SPINNER LOADING SCREEN -->
+<div id="SPIN">
+  <div class="lds-grid-container">
+    <div class="lds-heart"><div></div></div>
   </div>
 </div>
 
+<!--Song To Play -->
+<audio id="bgmusic" autoplay loop>
+  <source src="MusicMp3/music_travel_love_the_only_one_lyrics_video_mp3_66555.mp3" type="audio/mpeg">
+</audio>
+
+<!-- START SLIDER AND SLIDES -->
+<div class="slider">
+  <!--START 1st SLIDE -->
+  <div class="slide" style="background-image: url('img/img1.jpg');">
+    <div class="slide-overlay"></div> <!-- Move the overlay inside the slide -->
+    
+    <div class="YORO">
+      <div style="z-index: 999; font-family:'TanBold'; font-size:50px; margin-top:50px; max-width:90%; font-weight: bold;">We Are Getting Married!</div>
+    </div>
+    
+    <br/>
+    <div class="YORO">
+      <div style="z-index: 999; margin-top:30px; font-family:'Italiano'; font-size:50px">Richard <br/> & <br/> Claudette</div>
+    </div>
+    
+    <button id="play" class="unlock-button" onclick="unlockSlides()" style="z-index: 2; font-family: 'TanBold'; font-size:50px; margin-top:30px;">
+      <img class="image-fade4" src="img/play.png" style="width: 200px; height: 200px;">Tap to Start
+    </button>
+    
+    <div class="YORO" style="z-index: 3;">
+      <button id="play1" class="pause-button" style="z-index: 2;">
+        <img id="musicImage" style="width: 20px; height: 20px;" src="img/music-stop.png">
+      </button>
+    </div>
+  </div>
+  <!--END 1st SLIDE -->
+  
+  <!--START 2nd SLIDE -->
+  <div class="slide" style="background-image: url('img/img6.jpg');">
+    <div class="slide-overlay"></div> <!-- Move the overlay inside the slide -->
+    
+    <div class="YORO" style="z-index: 3;">
+      <h2 style="font-family: 'italiano'; font-size:40px; z-index: 3; margin: 1; max-width: 80%;">Join us as we celebrate our love and begin a<br class="pc-only"/> new chapter in our lives.</h2>
+    </div>
+    
+    <br />
+    <div class="YORO" style="z-index: 3;">
+      <p style="z-index:3; margin:0; font-size:20px;">Date: [Date]<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar2-heart-fill" viewBox="0 0 16 16">
+        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5Zm-2 4v-1c0-.276.244-.5.545-.5h10.91c.3 0 .545.224.545.5v1c0 .276-.244.5-.546.5H2.545C2.245 5 2 4.776 2 4.5Zm6 3.493c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+      </svg></p>
+      <br/>
+    </div>
+    
+    <br />
+    <div class="YORO" style="z-index: 3;">
+      <p style="z-index:3; margin:0; font-size:20px;">Time: [Time]<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+      </svg></p>
+      <br/>
+    </div>
+    
+    <br />
+    <div class="YORO" style="z-index: 3;">
+      <p style="z-index:3; margin:0; font-size:20px;">Location: [Venue Name]<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+      </svg></p>
+      <br/>
+    </div>
+    
+    <br />
+    <div class="YORO" style="z-index: 3;">
+      <p style="z-index:3; margin:0;">
+        <button class="button-28" role="button">
+          <a class="button-link" href="https://goo.gl/maps/CggkAtbF8TGEhwKLA">Location Map<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98l4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
+          </svg></a>
+        </button>
+      </p>
+    </div>
+    
+    <div class="image-fade2" style="z-index: 3; margin: 5px auto; position: absolute; bottom: 13%; text-align: center; left: 0; right: 0;">
+      <div class="YORO" style="z-index: 3; margin: 5px auto; position: absolute; bottom: 13%; text-align: center; left: 0; right: 0;">
+        <img style="position:fixed;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACxklEQVR4nO3YT4hVZRzG8Tf/zKiQpShhTYqrMBhFWgw1m3QVVIugRQvRFlabiVm0mO1sillECwnB1AIV2sQguAmKIrRFkUJqi4QQlTZJkWCoNfaJ05zBGTvnvXPvPXfuubf3uz7n93ve97x/nvOEkEgkEolEIpFIJIrAu3g19Bh4ER9iWTtF3nSPQxgINQcPYAJ3c91vt1roOfxlIWewKdQUPIhp/+W1VortK5iAjGsYCTUDT+LHAr1/46129tEfBUVvY3+oCbnO3wt0zrStEyO4XlC86+dCwX6fz008X1WjbbhSMglfd+NcwHp8WqLpVzxTdcNH8X1Jw5/xdKUN41p24KcSLZfxRKcar8PpksZ3MN6Rxgs1vJIv7yIuYKjTAgbxiXKOYXUH+i7HVKTvl3io6r4xMT9ExHyHzaEisAGfRfpNd2LSF3MCT0ZE/YJnQ5tgZ76vy3i/LbvbLhgruYbkRmqijdp7SnzInMGZDHUAL+FW5Csdb2aJYkWD/T7Tkr3tJNiFGxHRZ7FlEXU24otInWxFvBDqCIZzT1BG5ih3R95/KmK4Mn7DaKgz2IpLkUEUngt4PfcSZWQTO9wTgQgewTlxPsKq3FccafDseTzWjUBk7L7rZmUT767F5w0G9i2+afDMV3i4ib7L8ut57mZ6p2uBCAbwsdY52eTtUb9AxOwXOdDC4A9mjrNvAhGM52IWw1RfBiLYiz8jA88Ev9HXgYj4qnq5zoHI4/ihikAkMzO5yPmCR/9XgYjZVXU1n7ztvRSIrMEp5WTnwmATq2qoiR+k9yJ9s/+HFIgsGVIgMksKREIKRP4lBSIhBSL9GYi0Qh6IZBlgjBO5p8gCkcMNnr2YeYbQS+hSIFIrLHEgUkvMGqYsV2yWo5n9Df2CDgYiPYOKA5GeREWBSE+jzUCkL9BiINJXaCIQSSQSiUQikUiEavkHSfQPhekqB4QAAAAASUVORK5CYII=">
+      </div>
+    </div>
+  </div>
+  <!--END 2nd SLIDE -->
+  
+  <!-- START 3RD SLIDE -->
+  <div class="slide" style="background-image: url('img/img5.jpg');">
+    <div class="slide-overlay"></div> <!-- Move the overlay inside the slide -->
+    <div class="YORO" style="z-index: 3;">
+      <div id="countdown" style="z-index: 2;">
+        <div id="days" class="countdown-unit" style="z-index: 2; font-size:30px;font-family: 'Italiano';"></div>
+        <div id="hours" class="countdown-unit" style="z-index: 2; font-family: 'Italiano'; font-size:30px;"></div>
+        <div id="minutes" class="countdown-unit" style="z-index: 2; font-family: 'Italiano'; font-size:30px;"></div>
+        <div id="seconds" class="countdown-unit" style="z-index: 2; font-family: 'Italiano'; font-size:30px;"></div>
+      </div>
+    </div>
+    
+    <br/><br/>
+    <div class="YORO" style="z-index: 3;">
+      <h3 style="max-width:80%; margin:1; font-family:'italiano'; font-size:40px;">"Love doesn't just sit there, like a stone, it has to be made, like bread; remade all the time, made new." <br/>—The Lathe of Heaven</h3>
+    </div>
+    
+    <div class="image-fade2" style="z-index: 3; margin: 5px auto; position: absolute; bottom: 13%; text-align: center; left: 0; right: 0;">
+      <div class="YORO" style="z-index: 3; margin: 5px auto; position: absolute; bottom: 13%; text-align: center; left: 0; right: 0;">
+        <img style="position:fixed;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACxklEQVR4nO3YT4hVZRzG8Tf/zKiQpShhTYqrMBhFWgw1m3QVVIugRQvRFlabiVm0mO1sillECwnB1AIV2sQguAmKIrRFkUJqi4QQlTZJkWCoNfaJ05zBGTvnvXPvPXfuubf3uz7n93ve97x/nvOEkEgkEIpFIJBIJIrAu3g19Bh4ER9iWTtF3nSPQxgINQcPYAJ3c91vt1roOfxlIWewKdQUPIhp/+W1VortK5iAjGsYCTUDT+LHAr1/46129tEfBUVvY3+oCbnO3wt0zrStEyO4XlC86+dCwX6fz008X1WjbbhSMglfd+NcwHp8WqLpVzxTdcNH8X1Jw5/xdKUN41p24KcSLZfxRKcar8PpksZ3MN6Rxgs1vJIv7yIuYKjTAgbxiXKOYXUH+i7HVKTvl3io6r4xMT9ExHyHzaEisAGfRfpNd2LSF3MCT0ZE/YJnQ5tgZ76vy3i/LbvbLhgruYbkRmqijdp7SnzInMGZDHUAL+FW5Csdb2aJYkWD/T7Tkr3tJNiFGxHRZ7FlEXU24otInWxFvBDqCIZzT1BG5ih3R95/KmK4Mn7DaKgz2IpLkUEUngt4PfcSZWQTO9wTgQgewTlxPsKq3FccafDseTzWjUBk7L7rZmUT767F5w0G9i2+afDMV3i4ib7L8ut57mZ6p2uBCAbwsdY52eTtUb9AxOwXOdDC4A9mjrNvAhGM52IWw1RfBiLYiz8jA88Ev9HXgYj4qnq5zoHI4/ihikAkMzO5yPmCR/9XgYjZVXU1n7ztvRSIrMEp5WTnwmATq2qoiR+k9yJ9s/+HFIgsGVIgMksKREIKRP4lBSIhBSL9GYi0Qh6IZBlgjBO5p8gCkcMNnr2YeYbQS+hSIFIrLHEgUkvMGqYsV2yWo5n9Df2CDgYiPYOKA5GeREWBSE+jzUCkL9BiINJXaCIQSSQSiUQikUiEavkHSfQPhekqB4QAAAAASUVORK5CYII=">
+      </div>
+    </div>
+  </div>
+  <!--END 3RD SLIDE -->
+  
+  <!--START 4TH SLIDE -->
+  <div class="slide" style="background-image: url('img/img4.jpg');">
+    <div class="slide-overlay"></div> <!-- Move the overlay inside the slide -->
+    
+    <div class="YORO" style="z-index: 3;">
+      <h1 style="font-family: 'Italiano'; font-size:40px; z-index: 3; margin: 1; max-width: 80%;">Your presence would mean the world to us.</h1>
+    </div>
+    
+    <div class="YORO" style="z-index: 3;">
+      <h2 style="font-size:20px; z-index: 3; margin: 1; max-width: 80%;">Kindly Fill the Below form if you wish to attend</h2>
+    </div>
+    
+    <div class="YORO" style="z-index: 3;">
+      <div class="story_slide rsvp isnp_enabled">
+        <div class="story_slide_wrapper">
+          <div class="slide-content">
+            <div class="form-wrapper">
+              <form id="rsvp-event" name="rsvp_form">
+                <!-- Remove the action attribute completely -->
+                <input type="hidden" id="event_uuid" name="event_uuid" value="cb51c7a4-0358-43b7-95b1-37d8d382f42f">
+                
+                <div class="form-field fld-name">
+                  <div class="YORO" style="z-index: 3;"><br/>
+                    <label for="full_name" style="z-index: 3;">Name(s)</label>
+                  </div>
+                  <div class="YORO" style="z-index: 3;">
+                    <input placeholder="Full Name" id="full_name" type="text" name="full_name" value="" style="z-index: 3; background-color: transparent; border: 1px solid #000; padding: 10px; width: 300px; color: white; backdrop-filter: blur(5px);" required />
+                  </div><br/>
+                  
+                  <div class="YORO" style="z-index: 3;">
+                    <label style="z-index:3;">Are You Attending?</label>
+                  </div>
+                  
+                  <div class="YORO" style="z-index: 3;">
+                    <select id="guests" name="guests" style="z-index: 3; background-color: transparent; border: 1px solid #000; padding: 10px; width: 300px; color:white; backdrop-filter: blur(5px);">
+                      <option value="">- select -</option>
+                      <option value="attending" style="color:black;">Yes Attending</option>
+                      <option value="not_attending" style="color:black;">Not Attending</option>
+                    </select>
+                  </div>
+                  
+                  <div class="YORO" style="z-index: 3;">						
+                    <button type="button" id="send-email-button" style="z-index:3; width: 90%; border: none; border-radius: 5px; height: 60px; margin-top: 42px; background: #000; color: #fff; font-size: 22px; box-shadow: 0px 0px 8px 0px #f3f3f3; cursor:pointer; position relative;">Reserve</button>
+                  </div>							
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="image-fade2" style="z-index: 3; margin: 5px auto; position: absolute; bottom: 13%; text-align: center; left: 0; right: 0;">
+      <div class="YORO" style="z-index: 3; margin: 5px auto; position: absolute; bottom: 13%; text-align: center; left: 0; right: 0;">
+        <img style="position:fixed;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACxklEQVR4nO3YT4hVZRzG8Tf/zKiQpShhTYqrMBhFWgw1m3QVVIugRQvRFlabiVm0mO1sillECwnB1AIV2sQguAmKIrRFkUJqi4QQlTZJkWCoNfaJ05zBGTvnvXPvPXfuubf3uz7n93ve97x/nvOEkEgkEolEIpFIJIrAu3g19Bh4ER9iWTtF3nSPQxgINQcPYAJ3c91vt1roOfxlIWewKdQUPIhp/+W1VortK5iAjGsYCTUDT+LHAr1/46129tEfBUVvY3+oCbnO3wt0zrStEyO4XlC86+dCwX6fz008X1WjbbhSMglfd+NcwHp8WqLpVzxTdcNH8X1Jw5/xdKUN41p24KcSLZfxRKcar8PpksZ3MN6Rxgs1vJIv7yIuYKjTAgbxiXKOYXUH+i7HVKTvl3io6r4xMT9ExHyHzaEisAGfRfpNd2LSF3MCT0ZE/YJnQ5tgZ76vy3i/LbvbLhgruYbkRmqijdp7SnzInMGZDHUAL+FW5Csdb2aJYkWD/T7Tkr3tJNiFGxHRZ7FlEXU24otInWxFvBDqCIZzT1BG5ih3R95/KmK4Mn7DaKgz2IpLkUEUngt4PfcSZWQTO9wTgQgewTlxPsKq3FccafDseTzWjUBk7L7rZmUT767F5w0G9i2+afDMV3i4ib7L8ut57mZ6p2uBCAbwsdY52eTtUb9AxOwXOdDC4A9mjrNvAhGM52IWw1RfBiLYiz8jA88Ev9HXgYj4qnq5zoHI4/ihikAkMzO5yPmCR/9XgYjZVXU1n7ztvRSIrMEp5WTnwmATq2qoiR+k9yJ9s/+HFIgsGVIgMksKREIKRP4lBSIhBSL9GYi0Qh6IZBlgjBO5p8gCkcMNnr2YeYbQS+hSIFIrLHEgUkvMGqYsV2yWo5n9Df2CDgYiPYOKA5GeREWBSE+jzUCkL9BiINJXaCIQSSQSiUQikUiEavkHSfQPhekqB4QAAAAASUVORK5CYII=">
+      </div>
+    </div>
+  </div>
+  <!--END 4TH SLIDE -->
+  
+  <!--START 5TH SLIDE -->
+  <div class="slide" style="background-image: url('img/flowers.jpg');">
+    <div class="slide-overlay"></div> <!-- Move the overlay inside the slide -->
+    <div class="YORO" style="z-index: 3;">
+      <h1 style="z-index: 2; font-family: 'TanBold'; font-size:45px; max-width: 90%; font-weight: bold;">"With all our love and best wishes,<br/> [Family Names]</h1>
+    </div>
+    
+    <div class="YORO" style="z-index: 3; position: absolute; bottom: 30%; left: 0; right: 0; text-align: center;">
+      <img src="img/img3.jpg" class="rotated-image"> <!--ROTATED IMAGE -->
+    </div>
+    
+    <div class="YORO" style="z-index: 3; margin: 5px auto; position: absolute; bottom: 13%; text-align: center; left: 0; right: 0;">
+      <h5 style="z-index: 3; margin: 5px auto; position: absolute; bottom: 13%; text-align: center; left: 0; right: 0; font-size:15px;">Crafted By <a href="https://instagram.com/eventcrafts.me?igshid=OGQ5ZDc2ODk2ZA==" style="font-family: 'RubIso'; font-size: 30px; color: white;">EventCrafts</a></h5>
+    </div>
+  </div>
+  <!--END 5TH SLIDE -->
+</div>
+<!-- END SLIDER AND SLIDES -->
+
+<div class="progress-bar"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="rsvp-handler.js"></script>
 <script>
-  // Simple slider functionality
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.slide');
-  
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.style.display = i === index ? 'flex' : 'none';
+  var isLocked = true; // Initially, slides are locked
+
+  function unlockSlides() {
+    isLocked = false;
+    $(".slider").slick('slickSetOption', 'draggable', true);
+    $(".slider").slick('slickSetOption', 'swipe', true);
+    $(".slider").slick('slickGoTo', 1); // Go to the second slide (index 1) when unlocked
+    $(".unlock-button").hide(); // Hide the unlock button when pressed
+  }
+
+  $(document).ready(function(){
+    // Calculate the height of each slide based on viewport height
+    var windowHeight = $(window).height();
+    $('.slide').css('min-height', windowHeight);
+
+    $('.slider').slick({
+      vertical: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      infinite: false,
+      arrows: false,
+      swipe: false, // Disable Slick's default swipe behavior
+      draggable: false	// Enable dragging only when slides are unlocked
     });
-  }
-  
-  // Initial display
-  showSlide(0);
-  
-  // Unlock button functionality
-  document.querySelector('.unlock-button').addEventListener('click', function() {
-    showSlide(1);
+
+    // Enable vertical swipe navigation
+    var touchStartY = null;
+    var touchEndY = null;
+    var minSwipeDistance = 50; // Minimum vertical swipe distance required to trigger slide change
+
+    $('.slider').on('touchstart', function(e) {
+      var touch = e.originalEvent.touches[0];
+      touchStartY = touch.clientY;
+      touchEndY = null; // Reset touchEndY
+    });
+
+    $('.slider').on('touchmove', function(e) {
+      if (touchStartY !== null) {
+        var touch = e.originalEvent.touches[0];
+        touchEndY = touch.clientY;
+      }
+    });
+
+    $('.slider').on('touchend', function() {
+      if (touchStartY !== null && touchEndY !== null) {
+        var swipeDistance = touchEndY - touchStartY;
+
+        if (swipeDistance > minSwipeDistance) {
+          $('.slider').slick('slickPrev'); // Swipe down, go to the previous slide
+        } else if (swipeDistance < -minSwipeDistance) {
+          $('.slider').slick('slickNext'); // Swipe up, go to the next slide
+        }
+
+        touchStartY = null; // Reset touchStartY and touchEndY
+        touchEndY = null;
+      }
+    });
   });
-  
-  // Touch/swipe detection
-  let touchStartX = 0;
-  let touchEndX = 0;
-  
-  document.addEventListener('touchstart', function(e) {
-    touchStartX = e.changedTouches[0].screenX;
-  }, false);
-  
-  document.addEventListener('touchend', function(e) {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, false);
-  
-  function handleSwipe() {
-    if (touchEndX < touchStartX - 50) {
-      // Swipe left - next slide
-      currentSlide = Math.min(currentSlide + 1, slides.length - 1);
-    } else if (touchEndX > touchStartX + 50) {
-      // Swipe right - previous slide
-      currentSlide = Math.max(currentSlide - 1, 0);
+</script>
+
+<!-- Script for the progress bar -->
+<script>
+  $(document).ready(function(){
+    var slider = $('.slider');
+    var progress = $('.progress-bar');
+
+    // Update progress bar on slide change
+    slider.on('afterChange', function(event, slick, currentSlide, nextSlide){
+      var slideCount = slick.slideCount;
+      var progressWidth = (currentSlide / (slideCount - 1)) * 100;
+      progress.css('width', progressWidth + '%');
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  // Countdown timer
+  var weddingDate = new Date("September 30, 2025 00:00:00").getTime();
+
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = weddingDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerHTML = '<div>&nbsp;&nbsp;' + days + '&nbsp;&nbsp;&nbsp;</div><div>Days</div>';
+    document.getElementById("hours").innerHTML = '<div>&nbsp;&nbsp;&nbsp;&nbsp;' + hours + '</div><div>&nbsp;&nbsp;Hrs</div>';
+    document.getElementById("minutes").innerHTML = '<div>&nbsp;&nbsp;&nbsp;&nbsp;' + minutes + '</div><div>&nbsp;&nbsp;Min</div>';
+    document.getElementById("seconds").innerHTML = '<div >&nbsp;&nbsp;&nbsp;' + seconds + '</div><div>&nbsp;&nbsp;Sec</div>';
+
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("countdown").innerHTML = "EXPIRED";
     }
-    showSlide(currentSlide);
+  }, 1000);
+</script>
+
+<script>
+  // Get the background music element
+  const bgmusic = document.getElementById('bgmusic');
+
+  // Add click event listeners to each music button by its ID
+  document.getElementById('play').addEventListener('click', function () {
+    if (bgmusic.paused) {
+      bgmusic.play();
+    } else {
+      bgmusic.pause();
+    }
+  });
+
+  document.getElementById('play1').addEventListener('click', function () {
+    if (bgmusic.paused) {
+      bgmusic.play();
+    } else {
+      bgmusic.pause();
+    }
+  });
+
+  // Function to show the spinner
+  function showSpinner() {
+    document.querySelector('.lds-heart').style.display = 'inline-block';
   }
+
+  function hideSpinnerContainerAfterDelay() {
+    setTimeout(function () {
+      // Get the spinner container by its ID
+      const spinnerContainer = document.getElementById('SPIN');
+      
+      // Hide the spinner container
+      spinnerContainer.style.display = 'none';
+    }, 7000); // 10000 milliseconds = 10 seconds
+  }
+
+  // Call the function to hide the spinner container after the delay
+  hideSpinnerContainerAfterDelay();
 </script>
 
 </body>

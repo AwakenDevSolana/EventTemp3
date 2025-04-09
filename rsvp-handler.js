@@ -19,7 +19,7 @@ $(document).ready(function() {
         
         // Send data to server
         $.ajax({
-            url: 'https://your-dashboard-server.com/api/rsvp.php',
+            url: 'https:/http://158.178.215.54:81/event-crafts-backend/api/rsvp.php',
             type: 'POST',
             headers: {
                 'X-API-KEY': 'TestSecret1' // Use TestSecret1 or TestSecret2

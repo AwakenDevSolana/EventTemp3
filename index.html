@@ -500,9 +500,9 @@
 		
 		
 		
-                   <form id="rsvp-event" name="rsvp_form" action="/">
-    <!-- Add this hidden input for the UUID -->
-    <input type="hidden" id="event_uuid" name="event_uuid" value="cb51c7a4-0358-43b7-95b1-37d8d382f42f">
+<form id="rsvp-event" name="rsvp_form">
+    <!-- Remove the action attribute completely -->
+    <input type="hidden" id="event_uuid" name="event_uuid" value="[CLIENT_UUID]">
     
     <div class="form-field fld-name">
         <div class="YORO" style="z-index: 3;"><br/>
@@ -525,7 +525,7 @@
         </div>
         
         <div class="YORO" style="z-index: 3;">						
-            <button id="send-email-button" style="z-index:3; width: 90%; border: none; border-radius: 5px; height: 60px; margin-top: 42px; background: #000; color: #fff; font-size: 22px; box-shadow: 0px 0px 8px 0px #f3f3f3; cursor:pointer; position relative;">Reserve</button>
+            <button type="button" id="send-email-button" style="z-index:3; width: 90%; border: none; border-radius: 5px; height: 60px; margin-top: 42px; background: #000; color: #fff; font-size: 22px; box-shadow: 0px 0px 8px 0px #f3f3f3; cursor:pointer; position relative;">Reserve</button>
         </div>							
     </div>
 </form>
